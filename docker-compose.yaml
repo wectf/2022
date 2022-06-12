@@ -1,0 +1,163 @@
+version: '3.7'
+
+services:
+
+  dino-run-easy:
+    restart: always
+    build:
+      context: "./dino-run"
+      dockerfile: ./Dockerfile.easy
+    ports:
+      - "1001:7071"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.101
+
+  grafana:
+    restart: always
+    build:
+      context: "./grafana"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1002:3000"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.102
+    
+  google:
+    restart: always
+    build:
+      context: "./google"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1003:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.103
+  
+  dino-run-hard:
+    restart: always
+    build:
+      context: "./dino-run"
+      dockerfile: ./Dockerfile.hard
+    ports:
+      - "1004:7071"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.104
+  
+  request-bin-easy:
+    restart: always
+    build:
+      context: "./request-bin"
+      dockerfile: ./Dockerfile.easy
+    ports:
+      - "1005:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.105
+  
+  request-bin-hard:
+    restart: always
+    build:
+      context: "./request-bin"
+      dockerfile: ./Dockerfile.hard
+    ports:
+      - "1006:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.106
+
+  status-page:
+    restart: always
+    build:
+      context: "./status-page"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1007:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.107
+
+  fileio:
+    restart: always
+    build:
+      context: "./fileio"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1008:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.108
+
+  https-verifier:
+    restart: always
+    build:
+      context: "./https-verifier"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1009:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.109
+
+  flag-checker:
+    restart: always
+    build:
+      context: "./flag-checker"
+      dockerfile: ./Dockerfile
+    ports:
+      - "1010:443"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.110
+
+
+  rnbbackend:
+    restart: always
+    build:
+      context: "./readandburn"
+      dockerfile: ./Dockerfile.backend
+    networks:
+      chall:
+        ipv4_address: 172.128.1.111
+  rnbproxy:
+    restart: always
+    build:
+      context: "./readandburn"
+      dockerfile: ./Dockerfile.proxy
+    ports:
+      - "1011:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.112
+  
+  dino-run-frontend-easy:
+    restart: always
+    build:
+      context: "./dino-run"
+      dockerfile: ./Dockerfile.frontend
+    ports:
+      - "1012:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.113
+
+  dino-run-frontend-hard:
+    restart: always
+    build:
+      context: "./dino-run"
+      dockerfile: ./Dockerfile.frontend
+    ports:
+      - "1013:80"
+    networks:
+      chall:
+        ipv4_address: 172.128.1.114
+ 
+networks:
+  chall:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.128.0.0/16
+

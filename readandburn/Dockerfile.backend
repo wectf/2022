@@ -1,0 +1,7 @@
+FROM node:18
+WORKDIR /app
+COPY server/package.json .
+RUN npm i
+COPY server/main.js .
+ENV ADMIN_TOKEN=9bc94703-8891-4659-950d-cc5f0399c6fa
+CMD node main.js

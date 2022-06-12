@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  rnbbackend:
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile.backend
+    networks:
+      chall:
+        ipv4_address: 172.100.0.2
+  rnbproxy:
+    restart: always
+    build:
+      context: . 
+      dockerfile: Dockerfile.proxy
+    ports:
+      - "4007:80"
+    networks:
+      chall:
+        ipv4_address: 172.100.0.3
+ 
+networks:
+  chall:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.0.0/16
+
+
